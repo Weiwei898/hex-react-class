@@ -1,35 +1,53 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useRef, useState } from 'react'
+import axios from 'axios'
+import { Modal } from 'bootstrap'
+
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+import LessonOne from './assets/components/LessonOne';
+import LessonTwo from './assets/components/LessonTwo';
+
+const App = () => {
+  const [activeAssignment, setActiveAssignment] = useState(null);
+  const assignments = [
+    { id: 1, title: "第一週作業", desc: "從函式拆解認識設計模式" },
+    { id: 2, title: "第二週作業", desc: "RESTful API 串接" },
+  ];
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + Reactaaa</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="container">
+      {/* 如果 activeAssignment 是 null，顯示卡片牆 */}
+      {!activeAssignment ? (
+        <>
+          <h1>React每週作業</h1>
+          <ul className="row list-unstyled"> {/* 加上 row 可以讓卡片並排 */}
+            {assignments.map((item) => (
+              <li key={item.id} className="col-md-4 mb-4">
+                <div className="card" style={{ width: '18rem' }}>
+                  <div className="card-body">
+                    <h5 className="card-title">{item.title}</h5>
+                    <p className="card-text">{item.desc}</p>
+                    <button
+                      onClick={() => setActiveAssignment(item.id)}
+                      className="btn btn-primary">
+                      作業連結
+                    </button>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : (
+        /* 如果狀態不是 null，顯示作業內容 */
+        <div>
+          {activeAssignment === 1 && <LessonOne onBack={() => setActiveAssignment(null)} />}
+          {activeAssignment === 2 && <LessonTwo onBack={() => setActiveAssignment(null)} />}
+        </div>
+      )}
+
+    </div>
+  );
+};
 
 export default App
