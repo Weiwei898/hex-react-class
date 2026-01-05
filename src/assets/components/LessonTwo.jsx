@@ -88,10 +88,8 @@ const LessonTwo = ({ onBack }) => {
       {isAuth ? (
         <>
           <div className="container">
-            <div className="d-flex justify-content-between">
               <h2 className="">產品列表</h2>
               <button type="button" className="btn btn-danger" onClick={checkOut}>登出</button>
-            </div>
             <ul className="row mt-3 list-unstyled">
               {products.map((item) => (
                 <li key={item.id} className="col-md-4">
