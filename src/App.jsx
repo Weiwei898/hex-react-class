@@ -6,12 +6,14 @@ import './App.css'
 
 import LessonOne from './assets/components/LessonOne';
 import LessonTwo from './assets/components/LessonTwo';
+import LessonThree from './assets/components/LessonThree';
 
 const App = () => {
   const [activeAssignment, setActiveAssignment] = useState(null);
   const assignments = [
     { id: 1, title: "第一週作業", desc: "從函式拆解認識設計模式" },
     { id: 2, title: "第二週作業", desc: "RESTful API 串接" },
+    { id: 3, title: "第三週作業", desc: "熟練 React.js" },
   ];
 
   return (
@@ -43,6 +45,7 @@ const App = () => {
         <div>
           {activeAssignment === 1 && <LessonOne onBack={() => setActiveAssignment(null)} />}
           {activeAssignment === 2 && <LessonTwo onBack={() => setActiveAssignment(null)} />}
+          {activeAssignment === 3 && <LessonThree onBack={() => setActiveAssignment(null)} />}
         </div>
       )}
 
