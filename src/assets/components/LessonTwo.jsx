@@ -21,11 +21,15 @@ const LessonTwo = ({ onBack }) => {
     password: ""
   });
 
-  // 處理表單欄位變更的通用函式
+  // 處理表單欄位變更的通用函式 (onChange 觸發)
   const handleInputChange = (e) => {
+    // 從觸發事件的 input 元素中，解構取出 id 和目前的輸入值 (value)
     const { id, value } = e.target;
+    // 更新狀態：使用 prev (之前的狀態) 進行複製與局部更新
     setLoginData(prev => ({
-      ...prev,
+      ...prev,// 展開運算子：先複製一份舊的所有欄位資料 (避免更新帳號時密碼被刪除)
+      // 動態 Key 值：判斷當前 input 的 id
+      // 如果 id 是 'floatingInput'，就更新 username 欄位；否則更新 password 欄位
       [id === 'floatingInput' ? 'username' : 'password']: value
     }));
   };
