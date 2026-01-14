@@ -15,7 +15,7 @@ const LessonThree = ({ onBack }) => {
 
   // 新增產品 Modal 的開關狀態
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
-  const [modalType, setModalType] = useState('create'); // 'create' or 'edit'
+  const [modalType, setModalType] = useState('create'); // 'create' or 'edit' (建立或編輯)，預設create
   // 新增產品的表單資料
   const [modalData, setModalData] = useState({
     title: "",
@@ -50,7 +50,7 @@ const LessonThree = ({ onBack }) => {
   };
 
 
-  //登入API
+  //登入API => { ：這是要寫程式邏輯的地方 (要記得寫 return 才有值)。
   const signIn = async () => {
     try {
       //配合 集中管理登入資訊 (物件形式)修正由 改由loginData物件發送請求
@@ -127,12 +127,12 @@ const LessonThree = ({ onBack }) => {
     }
   };
 
-  //新增產品
+  //新增產品(函式負責接收參數 type，並呼叫 setModalType(type) 來更新狀態。)、product (目標資料物件)，product.title(哪一個屬性)
   const openProductModal = (type, product) => {
     setModalType(type);
     if (type === 'edit') {
       setModalData({
-        ...product,
+        ...product,//把物件裡所有的屬性倒出來
         imagesUrl: product.imagesUrl ? [...product.imagesUrl] : []
       });
     } else {
@@ -159,6 +159,7 @@ const LessonThree = ({ onBack }) => {
 
   const handleModalInputChange = (e) => {
     const { id, value, type, checked } = e.target;
+    //=> ({ ：這是要直接吐出一個物件。
     setModalData((prev) => ({
       ...prev,
       // 如果是 checkbox，值為 checked (true/false) 轉為 1/0，否則為 value
@@ -190,15 +191,17 @@ const LessonThree = ({ onBack }) => {
     });
   };
 
+  //更新產品
   const handleUpdateProduct = async () => {
     try {
       let api = `${API_BASE}/api/${API_PATH}/admin/product`;
       let method = 'post';
+      //判斷modalType是edit走修改的api
       if (modalType === 'edit') {
         api = `${API_BASE}/api/${API_PATH}/admin/product/${modalData.id}`;
         method = 'put';
       }
-
+      //不是edit走新增API
       await axios[method](api, { data: modalData });
 
       alert(modalType === 'edit' ? '更新成功' : '新增成功');
@@ -212,6 +215,7 @@ const LessonThree = ({ onBack }) => {
 
   //刪除產品
   const handleDeleteProduct = async (id) => {
+    //彈出對話框
     if (window.confirm('確認刪除?')) {
       try {
         await axios.delete(`${API_BASE}/api/${API_PATH}/admin/product/${id}`);
@@ -254,21 +258,22 @@ const LessonThree = ({ onBack }) => {
                 </tr>
               </thead>
               <tbody>
-                {products.map((item) => (
-                  <tr key={item.id}>
-                    <td>{item.category}</td>
-                    <td>{item.title}</td>
-                    <td>{item.origin_price}</td>
-                    <td>{item.price}</td>
-                    <td className={item.is_enabled ? "text-success fw-bold" : "text-danger fw-bold"}>
-                      {item.is_enabled ? "啟用" : "未啟用"}
+                {/* => ( ：通常是要直接吐出 JSX (HTML)。 */}
+                {products.map((product) => (
+                  <tr key={product.id}>
+                    <td>{product.category}</td>
+                    <td>{product.title}</td>
+                    <td>{product.origin_price}</td>
+                    <td>{product.price}</td>
+                    <td className={product.is_enabled ? "text-success fw-bold" : "text-danger fw-bold"}>
+                      {product.is_enabled ? "啟用" : "未啟用"}
                     </td>
                     <td>
-                      <button className="btn btn-outline-primary btn-sm" type="button" onClick={() => setTempProduct(item)}>查看細節</button>
+                      <button className="btn btn-outline-primary btn-sm" type="button" onClick={() => setTempProduct(product)}>查看細節</button>
                     </td>
                     <td>
-                      <button className="btn btn-outline-secondary btn-sm me-2" type="button" onClick={() => openProductModal('edit', item)}>編輯</button>
-                      <button className="btn btn-outline-danger btn-sm" type="button" onClick={() => handleDeleteProduct(item.id)}>刪除</button>
+                      <button className="btn btn-outline-secondary btn-sm me-2" type="button" onClick={() => openProductModal('edit', product)}>編輯</button>
+                      <button className="btn btn-outline-danger btn-sm" type="button" onClick={() => handleDeleteProduct(product.id)}>刪除</button>
                     </td>
                   </tr>
                 ))}
