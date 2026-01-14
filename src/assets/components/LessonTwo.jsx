@@ -124,24 +124,24 @@ const LessonTwo = ({ onBack }) => {
             <h2 className="">產品列表</h2>
             <button type="button" className="btn btn-danger" onClick={checkOut}>登出</button>
             <ul className="row mt-3 list-unstyled">
-              {products.map((item) => (
-                <li key={item.id} className="col-md-4">
+              {products.map((product) => (
+                <li key={product.id} className="col-md-4">
                   <div className="card h-100 shadow border-0 hover-shadow transition bg-primary-subtle">
                     <div style={{ overflow: 'hidden' }} className="rounded rounded-top-5 border-0 hover-shadow mb-3">
-                      <img src={item.imageUrl} alt="" className="" style={{
+                      <img src={product.imageUrl} alt="" className="" style={{
                         maxWidth: '100%',
                         maxHeight: '100%',
                         objectFit: 'contain'
                       }} />
                     </div>
                     <div className="card-body">
-                      <h5>{item.title}</h5>
+                      <h5>{product.title}</h5>
                       <div className="d-flex justify-content-center align-items-center gap-3">
-                        <p>原價：{item.origin_price}元</p>
-                        <p>售價：{item.price}元</p>
+                        <p>原價：{product.origin_price}元</p>
+                        <p>售價：{product.price}元</p>
                       </div>
-                      <p>是否啟用：{item.is_enabled ? "啟用" : "未啟用"}</p>
-                      <button className="btn btn-primary" onClick={() => setTempProduct(item)}>
+                      <p>是否啟用：{product.is_enabled ? "啟用" : "未啟用"}</p>
+                      <button className="btn btn-primary" onClick={() => setTempProduct(product)}>
                         查看細節
                       </button>
                     </div>
