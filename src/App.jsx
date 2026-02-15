@@ -4,9 +4,10 @@ import { Modal } from 'bootstrap'
 
 import './App.css'
 
-import LessonOne from './assets/components/LessonOne';
-import LessonTwo from './assets/components/LessonTwo';
-import LessonThree from './assets/components/LessonThree';
+import LessonOne from './assets/pages/LessonOne';
+import LessonTwo from './assets/pages/LessonTwo';
+import LessonThree from './assets/pages/LessonThree';
+import LessonFour from './assets/pages/LessonFour';
 
 const App = () => {
   const [activeAssignment, setActiveAssignment] = useState(null);
@@ -14,6 +15,7 @@ const App = () => {
     { id: 1, title: "第一週作業", desc: "從函式拆解認識設計模式" },
     { id: 2, title: "第二週作業", desc: "RESTful API 串接" },
     { id: 3, title: "第三週作業", desc: "熟練 React.js" },
+    { id: 4, title: "第四週作業", desc: "元件化" },
   ];
 
   return (
@@ -46,6 +48,7 @@ const App = () => {
           {activeAssignment === 1 && <LessonOne onBack={() => setActiveAssignment(null)} />}
           {activeAssignment === 2 && <LessonTwo onBack={() => setActiveAssignment(null)} />}
           {activeAssignment === 3 && <LessonThree onBack={() => setActiveAssignment(null)} />}
+          {activeAssignment === 4 && <LessonFour onBack={() => setActiveAssignment(null)} />}
         </div>
       )}
 

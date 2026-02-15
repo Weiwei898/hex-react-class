@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 // 1. 助教建議已解構取出 useState，下方可不再從 React 中選取，useEffect 也可以這麼做
 import axios from 'axios'
+import { Modal } from 'bootstrap';
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -13,8 +14,9 @@ const LessonThree = ({ onBack }) => {
   const [messageSignIn, setMessageSignIn] = useState("");//登入提示訊息
   const [isErrorSignIn, setIsErrorSignIn] = useState(false);//錯誤提示訊息
 
-  // 新增產品 Modal 的開關狀態
-  const [isProductModalOpen, setIsProductModalOpen] = useState(false);
+  // 新增產品 Modal 的 Ref 與實體
+  const productModalRef = useRef(null);
+  const modalInstanceRef = useRef(null);
   const [modalType, setModalType] = useState('create'); // 'create' or 'edit' (建立或編輯)，預設create
   // 新增產品的表單資料
   const [modalData, setModalData] = useState({
@@ -38,15 +40,8 @@ const LessonThree = ({ onBack }) => {
 
   // 處理表單欄位變更的通用函式 (onChange 觸發)
   const handleInputChange = (e) => {
-    // 從觸發事件的 input 元素中，解構取出 id 和目前的輸入值 (value)
-    const { id, value } = e.target;
-    // 更新狀態：使用 prev (之前的狀態) 進行複製與局部更新
-    setLoginData(prev => ({
-      ...prev,// 展開運算子：先複製一份舊的所有欄位資料 (避免更新帳號時密碼被刪除)
-      // 動態 Key 值：判斷當前 input 的 id
-      // 如果 id 是 'floatingInput'，就更新 username 欄位；否則更新 password 欄位
-      [id === 'floatingInput' ? 'username' : 'password']: value
-    }));
+    const { name, value } = e.target;
+    setLoginData(prev => ({ ...prev, [name]: value }));
   };
 
 
@@ -116,6 +111,14 @@ const LessonThree = ({ onBack }) => {
     checkLogin();
   }, []);
 
+  // 初始化 Bootstrap Modal
+  useEffect(() => {
+    // 只有當 isAuth 為 true 且 productModalRef.current 存在時才初始化 Modal
+    if (isAuth && productModalRef.current) {
+      modalInstanceRef.current = new Modal(productModalRef.current, { backdrop: false });
+    }
+  }, [isAuth]);
+
   //取得產品API
   const getData = async () => {
     try {
@@ -150,11 +153,11 @@ const LessonThree = ({ onBack }) => {
         imagesUrl: []
       });
     }
-    setIsProductModalOpen(true);
+    modalInstanceRef.current.show();
   };
 
   const closeProductModal = () => {
-    setIsProductModalOpen(false);
+    modalInstanceRef.current.hide();
   };
 
   const handleModalInputChange = (e) => {
@@ -209,7 +212,7 @@ const LessonThree = ({ onBack }) => {
       getData();
     } catch (error) {
       console.error(error);
-      alert('操作失敗');
+      alert(error.response?.data?.message || '操作失敗');
     }
   };
 
@@ -321,9 +324,8 @@ const LessonThree = ({ onBack }) => {
           )}
 
           {/* 新增商品 Modal */}
-          {isProductModalOpen && (
-            <div className="modal fade show" style={{ display: 'block', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
-              <div className="modal-dialog modal-lg modal-dialog-centered">
+          <div ref={productModalRef} className="modal fade" tabIndex="-1">
+            <div className="modal-dialog modal-lg modal-dialog-centered">
                 <div className="modal-content border-0 shadow-lg rounded-4">
                   <div className="modal-header bg-primary-subtle text-primary-emphasis rounded-top-4 border-bottom-0">
                     <h5 className="modal-title fw-bold">{modalType === 'create' ? '建立新商品' : '編輯商品'}</h5>
@@ -364,12 +366,12 @@ const LessonThree = ({ onBack }) => {
 
                         <div className="mb-3">
                           <label htmlFor="origin_price" className="form-label fw-bold text-secondary">原價</label>
-                          <input type="number" className="form-control rounded-3 bg-light border-0" id="origin_price" placeholder="請輸入原價" value={modalData.origin_price} onChange={handleModalInputChange} />
+                          <input min="0" type="number" className="form-control rounded-3 bg-light border-0" id="origin_price" placeholder="請輸入原價" value={modalData.origin_price} onChange={handleModalInputChange} />
                         </div>
 
                         <div className="mb-3">
                           <label htmlFor="price" className="form-label fw-bold text-secondary">售價</label>
-                          <input type="number" className="form-control rounded-3 bg-light border-0" id="price" placeholder="請輸入售價" value={modalData.price} onChange={handleModalInputChange} />
+                          <input min="0" type="number" className="form-control rounded-3 bg-light border-0" id="price" placeholder="請輸入售價" value={modalData.price} onChange={handleModalInputChange} />
                         </div>
                         <hr className="border-secondary-subtle" />
                         <div className="mb-3">
@@ -415,7 +417,6 @@ const LessonThree = ({ onBack }) => {
                 </div>
               </div>
             </div>
-          )}
         </>
       ) : (
         <div className="container">
@@ -424,6 +425,7 @@ const LessonThree = ({ onBack }) => {
               <h2>使用者登入</h2>
               <div className="form-floating mb-3">
                 <input
+                  name="username"
                   value={loginData.username}
                   onChange={handleInputChange}
                   type="email" className="form-control" id="floatingInput" placeholder="name@example.com" />
@@ -431,6 +433,7 @@ const LessonThree = ({ onBack }) => {
               </div>
               <div className="form-floating mb-3">
                 <input
+                  name="password"
                   value={loginData.password}
                   onChange={handleInputChange}
                   type="password" className="form-control" id="floatingPassword" placeholder="Password" />
