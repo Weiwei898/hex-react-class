@@ -1,13 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
-import axios from 'axios'
-import { Modal } from 'bootstrap'
-
 import './App.css'
 
 import LessonOne from './assets/pages/LessonOne';
 import LessonTwo from './assets/pages/LessonTwo';
 import LessonThree from './assets/pages/LessonThree';
 import LessonFourAdminLogin from './assets/pages/LessonFourAdminLogin';
+import LessonFiveIndex from './assets/pages/LessonFive/LessonFiveIndex';
 
 const App = () => {
   const [activeAssignment, setActiveAssignment] = useState(null);
@@ -16,6 +14,7 @@ const App = () => {
     { id: 2, title: "第二週作業", desc: "RESTful API 串接" },
     { id: 3, title: "第三週作業", desc: "熟練 React.js" },
     { id: 4, title: "第四週作業", desc: "元件化" },
+    { id: 5, title: "第五週作業", desc: "Vite、React Router" },
   ];
 
   return (
@@ -49,6 +48,7 @@ const App = () => {
           {activeAssignment === 2 && <LessonTwo onBack={() => setActiveAssignment(null)} />}
           {activeAssignment === 3 && <LessonThree onBack={() => setActiveAssignment(null)} />}
           {activeAssignment === 4 && <LessonFourAdminLogin onBack={() => setActiveAssignment(null)} />}
+            {activeAssignment === 5 && <LessonFiveIndex onBack={() => setActiveAssignment(null)} />}
         </div>
       )}
 
