@@ -1,0 +1,86 @@
+/* Kawasaki Theme for Lesson 5 */
+
+/* 讓整個區塊內的卡片變成深色風格，減少白色的比例 */
+.lesson-five .card {
+    background-color: #2b2b2b; /* 深灰/黑色背景 */
+    border: none;
+    color: #ffffff; /* 白色文字 */
+    transition: transform 0.2s;
+}
+
+.lesson-five .card:hover {
+    transform: translateY(-5px); /* 滑鼠懸停時微微上浮 */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5) !important;
+}
+
+/* 圖片區塊樣式 */
+.lesson-five .card-img-wrapper {
+    height: 180px;
+    position: relative; /* 讓內部的絕對定位元素以此為基準 */
+}
+
+.lesson-five .card-img-top {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+/* 分類標籤：Kawasaki 綠底黑字 */
+.lesson-five .badge-category {
+    background-color: #69BE28;
+    color: #000;
+    font-size: 0.9rem;
+    padding: 0.5em 0.8em;
+    z-index: 10; /* 確保浮在圖片上方 */ 
+}
+
+/* 價格文字 */
+.lesson-five .text-price {
+    color: #69BE28;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* 按鈕：黑底綠框綠字，Hover 變綠底黑字 */
+.lesson-five .btn-kawasaki {
+    background-color: #000;
+    color: #69BE28;
+    border: 1px solid #69BE28;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.lesson-five .btn-kawasaki:hover {
+    background-color: #69BE28;
+    color: #000;
+}
+
+/* 覆寫分頁元件樣式，使其融入深色主題 */
+.lesson-five .page-link {
+    background-color: #2b2b2b;
+    border-color: #444;
+    color: #69BE28;
+}
+
+.lesson-five .page-item.active .page-link {
+    background-color: #69BE28;
+    border-color: #69BE28;
+    color: #000;
+}
+
+.lesson-five .page-item.disabled .page-link {
+    background-color: #1a1a1a;
+    border-color: #444;
+    color: #6c757d;
+}
+
+/* 導覽列樣式 */
+.lesson-five .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.7);
+    transition: color 0.3s;
+}
+
+.lesson-five .navbar-nav .nav-link:hover,
+.lesson-five .navbar-nav .nav-link.active {
+    color: #69BE28 !important;
+}
