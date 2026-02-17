@@ -7,7 +7,7 @@ import './App.css'
 import LessonOne from './assets/pages/LessonOne';
 import LessonTwo from './assets/pages/LessonTwo';
 import LessonThree from './assets/pages/LessonThree';
-import LessonFour from './assets/pages/LessonFour';
+import LessonFourAdminLogin from './assets/pages/LessonFourAdminLogin';
 
 const App = () => {
   const [activeAssignment, setActiveAssignment] = useState(null);
@@ -48,7 +48,7 @@ const App = () => {
           {activeAssignment === 1 && <LessonOne onBack={() => setActiveAssignment(null)} />}
           {activeAssignment === 2 && <LessonTwo onBack={() => setActiveAssignment(null)} />}
           {activeAssignment === 3 && <LessonThree onBack={() => setActiveAssignment(null)} />}
-          {activeAssignment === 4 && <LessonFour onBack={() => setActiveAssignment(null)} />}
+          {activeAssignment === 4 && <LessonFourAdminLogin onBack={() => setActiveAssignment(null)} />}
         </div>
       )}
 
