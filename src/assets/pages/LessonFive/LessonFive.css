@@ -8,7 +8,8 @@
     transition: transform 0.2s;
 }
 
-.lesson-five .card:hover {
+/* 只讓有 product-card class 的卡片 (產品列表) 有 Hover 效果 */
+.lesson-five .product-card:hover {
     transform: translateY(-5px); /* 滑鼠懸停時微微上浮 */
     box-shadow: 0 10px 20px rgba(0,0,0,0.5) !important;
 }

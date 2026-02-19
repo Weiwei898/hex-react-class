@@ -36,7 +36,7 @@ export default function LessonFiveProducts() {
       <div className="row row-cols-1 row-cols-md-3 row-cols-lg-3 g-4">
         {products.map((product) => (
           <div className="col" key={product.id}>
-            <div className="card h-100 shadow-sm overflow-hidden position-relative">
+            <div className="card h-100 shadow-sm overflow-hidden position-relative product-card">
               {/* 分類標籤：絕對定位於卡片左上角 */}
               <div className="position-absolute top-0 start-0 p-2" style={{ zIndex: 10 }}>
                 <span className="badge rounded-pill badge-category">{product.category}</span>
