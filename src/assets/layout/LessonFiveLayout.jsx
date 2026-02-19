@@ -22,6 +22,9 @@ export default function LessonFiveLayout() {
                 <NavLink className="nav-link" to="/cart">購物車</NavLink>
               </li>
               <li className="nav-item">
+                <NavLink className="nav-link" to="/userlogin">登入</NavLink>
+              </li>
+              <li className="nav-item">
                 <a className="nav-link" href="#" onClick={(e) => { e.preventDefault(); onBack(); }}>回每週作業列表</a>
               </li>
             </ul>

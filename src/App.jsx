@@ -15,6 +15,7 @@ const App = () => {
     { id: 3, title: "第三週作業", desc: "熟練 React.js" },
     { id: 4, title: "第四週作業", desc: "元件化" },
     { id: 5, title: "第五週作業", desc: "Vite、React Router" },
+    { id: 6, title: "第六週作業", desc: "進階語法介紹" },
   ];
 
   return (
@@ -48,7 +49,9 @@ const App = () => {
           {activeAssignment === 2 && <LessonTwo onBack={() => setActiveAssignment(null)} />}
           {activeAssignment === 3 && <LessonThree onBack={() => setActiveAssignment(null)} />}
           {activeAssignment === 4 && <LessonFourAdminLogin onBack={() => setActiveAssignment(null)} />}
-            {activeAssignment === 5 && <LessonFiveIndex onBack={() => setActiveAssignment(null)} />}
+          {activeAssignment === 5 && <LessonFiveIndex onBack={() => setActiveAssignment(null)} />}
+          {/*第六週作業是延續第五週，還是再開一個分頁連結，改code後，因延續關係第五週作業也會一併影響到*/}
+          {activeAssignment === 6 && <LessonFiveIndex onBack={() => setActiveAssignment(null)} />}
         </div>
       )}
 

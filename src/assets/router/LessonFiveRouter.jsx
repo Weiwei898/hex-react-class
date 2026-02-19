@@ -5,6 +5,9 @@ import LessonFiveProducts from '../pages/LessonFive/LessonFiveProducts';
 import LessonFiveSingleProduct from '../pages/LessonFive/LessonFiveSingleProduct';
 import LessonFiveCart from '../pages/LessonFive/LessonFiveCart';
 import LessonFiveNotFound from '../pages/LessonFive/LessonFiveNotFound';
+import LessonSixUserLogin from '../pages/LessonSixUserLogin';
+import LessonSixCheckoutPage from '../pages/LessonSixCheckoutPage';
+
 
 export const router = createHashRouter([
   {
@@ -26,6 +29,14 @@ export const router = createHashRouter([
       {
         path: 'cart',
         element: <LessonFiveCart />,
+      },
+      {
+        path: 'userlogin',
+        element: <LessonSixUserLogin />,
+      },
+      {
+        path: 'checkout',
+        element: <LessonSixCheckoutPage />,
       },
       {
         path: '*',
