@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+// 因應LessonSix作業進行LessonFiveCart最小改動，(引入自定義 Hook)
+import { useCart } from '../../hooks/lessonSixUseCart';
 import './LessonFive.css';
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
 export default function LessonFiveCart() {
+  // 因應LessonSix作業進行LessonFiveCart最小改動，(驗證登入狀態，useNavigate 進行頁面跳轉)
+  const navigate = useNavigate();
   const [cart, setCart] = useState({});
 
   const getCart = async () => {
@@ -18,6 +22,10 @@ export default function LessonFiveCart() {
       alert('取得購物車失敗');
     }
   };
+
+  // 因應LessonSix作業進行LessonFiveCart最小改動，(使用 useCart Hook 取出需要的資料與函式，並傳入 getCart 以便更新畫面)
+  //這裡有報錯 等最後的內容都搞定再回來檢查
+  const { updateCartItem, canDecrement, canCheckout } = useCart(getCart);
 
   const removeCartItem = async (id) => {
     try {
@@ -59,7 +67,27 @@ export default function LessonFiveCart() {
                         <span className="fw-bold">{item.product.title}</span>
                       </div>
                     </td>
-                    <td>{item.qty}</td>
+                    <td>
+                      {/* 因應LessonSix作業進行LessonFiveCart最小改動，(修改數量顯示為可操作的按鈕群組) */}
+                      <div className="input-group input-group-sm" style={{ width: '120px' }}>
+                        <button 
+                          className="btn btn-outline-secondary" 
+                          type="button" 
+                          onClick={() => updateCartItem(item.id, item.product_id, item.qty - 1)}
+                          disabled={!canDecrement(item.qty)}
+                        >
+                          -
+                        </button>
+                        <input type="text" className="form-control text-center" value={item.qty} readOnly />
+                        <button 
+                          className="btn btn-outline-secondary" 
+                          type="button" 
+                          onClick={() => updateCartItem(item.id, item.product_id, item.qty + 1)}
+                        >
+                          +
+                        </button>
+                      </div>
+                    </td>
                     <td className="text-end">NT$ {item.product.price}</td>
                     <td className="text-end pe-4 text-price">NT$ {item.final_total}</td>
                     <td className="text-center">
@@ -81,7 +109,15 @@ export default function LessonFiveCart() {
           </div>
           <div className="card-footer bg-dark border-top border-secondary p-3 d-flex justify-content-end">
             <Link to="/product" className="btn btn-outline-light me-2">繼續購物</Link>
-            <button type="button" className="btn btn-kawasaki">前往結帳</button>
+            {/* 因應LessonSix作業進行LessonFiveCart最小改動，(加入結帳按鈕的狀態控制) */}
+            <button 
+              type="button" 
+              className={`btn btn-kawasaki ${!canCheckout(cart.carts) ? 'disabled' : ''}`}
+              onClick={() => navigate('/userlogin')} // 點擊後導向登入頁面進行驗證
+              disabled={!canCheckout(cart.carts)}
+            >
+              前往結帳
+            </button>
           </div>
         </div>
       ) : (
