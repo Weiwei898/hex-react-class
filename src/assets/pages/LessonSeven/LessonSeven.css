@@ -1,0 +1,143 @@
+/* Kawasaki Theme for Lesson 7 */
+
+.lesson-seven .hero-section {
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                url('https://images.unsplash.com/photo-1635073908681-3f678280387c?q=80&w=1200'); /* 二手重機氛圍背景圖 */
+    background-size: cover;
+    background-position: center;
+    border-bottom: 2px solid #69BE28;
+}
+
+.lesson-seven {
+    background-color: #1a1a1a; /* 整體頁面背景色 */
+    min-height: 100vh;
+}
+
+/* 讓整個區塊內的卡片變成深色風格，減少白色的比例 */
+.lesson-seven .card {
+    background-color: #3d3d3d; /* 改淺一點的深灰色，增加與背景的層次感 */
+    border: none;
+    color: #ffffff; /* 白色文字 */
+    transition: transform 0.2s;
+}
+
+/* 只讓有 product-card class 的卡片 (產品列表) 有 Hover 效果 */
+.lesson-seven .product-card:hover {
+    transform: translateY(-5px); /* 滑鼠懸停時微微上浮 */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5) !important;
+}
+
+/* 圖片區塊樣式 */
+.lesson-seven .card-img-wrapper {
+    height: 180px;
+    position: relative; /* 讓內部的絕對定位元素以此為基準 */
+}
+
+.lesson-seven .card-img-top {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+/* 分類標籤：Kawasaki 綠底黑字 */
+.lesson-seven .badge-category {
+    background-color: #69BE28;
+    color: #000;
+    font-size: 0.9rem;
+    padding: 0.5em 0.8em;
+    z-index: 10; /* 確保浮在圖片上方 */ 
+    position: relative;
+}
+
+
+/* 分類標籤SingleProduct用：Kawasaki 綠底黑字 */
+.lesson-seven .badge-category-Single {
+    background-color: #69BE28;
+    color: #000;
+    font-size: 0.9rem;
+    padding: 0.5em 0.8em;
+    z-index: 100; /* 確保浮在圖片上方 */ 
+    position: relative;
+    transform: translate(-30px, -30px);
+}
+
+.lesson-seven .badge-category-home {
+    background-color: #69BE28;
+    color: #000 !important; /* 強制覆蓋 Bootstrap 的白色文字 */
+    font-size: 0.9rem;
+    padding: 0.5em 0.8em;
+    z-index: 100; /* 確保浮在圖片上方 */ 
+    position: relative;
+    transform: translate(-30px, -30px);
+}
+
+/* 價格文字 */
+.lesson-seven .text-price {
+    color: #69BE28;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* 按鈕：黑底綠框綠字，Hover 變綠底黑字 */
+.lesson-seven .btn-kawasaki {
+    background-color: #000;
+    color: #69BE28;
+    border: 1px solid #69BE28;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.lesson-seven .btn-kawasaki:hover {
+    background-color: #69BE28;
+    color: #000;
+}
+
+/* 覆寫分頁元件樣式，使其融入深色主題 */
+.lesson-seven .page-link {
+    background-color: #3d3d3d;
+    border-color: #444;
+    color: #69BE28;
+}
+
+.lesson-seven .page-item.active .page-link {
+    background-color: #69BE28;
+    border-color: #69BE28;
+    color: #000;
+}
+
+.lesson-seven .page-item.disabled .page-link {
+    background-color: #1a1a1a;
+    border-color: #444;
+    color: #6c757d;
+}
+
+/* 導覽列樣式 */
+.lesson-seven .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.7);
+    transition: color 0.3s;
+}
+
+.lesson-seven .navbar-nav .nav-link:hover,
+.lesson-seven .navbar-nav .nav-link.active {
+    color: #69BE28 !important;
+}
+
+/* 輸入框深色模式：讓表單控制項融入深色卡片 */
+.lesson-seven .form-control,
+.lesson-seven .form-select {
+    background-color: #2b2b2b; /* 比卡片背景深，製造凹陷感 */
+    border-color: #555;
+    color: #fff;
+}
+
+.lesson-seven .form-control:focus,
+.lesson-seven .form-select:focus {
+    background-color: #2b2b2b;
+    border-color: #69BE28;
+    color: #fff;
+    box-shadow: 0 0 0 0.25rem rgba(105, 190, 40, 0.25);
+}
+
+.lesson-seven .form-control::placeholder {
+    color: #aaa;
+}
