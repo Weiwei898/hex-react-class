@@ -4,8 +4,10 @@ import './App.css'
 import LessonOne from './assets/pages/LessonOne';
 import LessonTwo from './assets/pages/LessonTwo';
 import LessonThree from './assets/pages/LessonThree';
-import LessonFourAdminLogin from './assets/pages/LessonFourAdminLogin';
+import LessonFourAdminLogin from './assets/pages/LessonFourAdminLogin'; //每週作業四
 import LessonFiveIndex from './assets/pages/LessonFive/LessonFiveIndex';
+import LessonSevenIndex from './assets/pages/LessonSeven/LessonSevenIndex';
+
 
 const App = () => {
   const [activeAssignment, setActiveAssignment] = useState(null);
@@ -16,10 +18,12 @@ const App = () => {
     { id: 4, title: "第四週作業", desc: "元件化" },
     { id: 5, title: "第五週作業", desc: "Vite、React Router" },
     { id: 6, title: "第六週作業", desc: "進階語法介紹" },
+    { id: 7, title: "第七週作業", desc: "Redux 與 Redux Toolkit" },
   ];
 
   return (
-    <div className="container">
+    // 如果是第七週作業 (activeAssignment === 7)，移除 container class 以便讓內頁可以全寬滿版
+    <div className={activeAssignment === 7 ? "" : "container"}>
       {/* 如果 activeAssignment 是 null，顯示卡片牆 */}
       {!activeAssignment ? (
         <>
@@ -52,6 +56,8 @@ const App = () => {
           {activeAssignment === 5 && <LessonFiveIndex onBack={() => setActiveAssignment(null)} />}
           {/*第六週作業是延續第五週，還是再開一個分頁連結，改code後，因延續關係第五週作業也會一併影響到*/}
           {activeAssignment === 6 && <LessonFiveIndex onBack={() => setActiveAssignment(null)} />}
+          {/*第七週作業是延續第五、六週，還是再開一個分頁連結，改code後，因延續關係第五、六週作業也會一併影響到，此次試著把會改動到的部份，再開一個新的jsx檔，避免太多作業合在一起助教錯亂*/}
+          {activeAssignment === 7 && <LessonSevenIndex />}
         </div>
       )}
 
